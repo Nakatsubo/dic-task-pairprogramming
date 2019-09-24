@@ -28,7 +28,6 @@ class VendingMachine
   def return_money
     @change_money += @slot_money
     @slot_money = 0
-    slot_money
   end
 
   # 投入したお金の合計処理
@@ -77,7 +76,7 @@ class VendingMachine
   # => true or false
   # vm.balance_amount?(:コーラ)
   def purchase?(product_name)
-    balance_amount?(product_name) && product_exist?(product_name)
+    balance_amount?(product_name) && drinks_exist?(product_name)
   end
 
   # 残金が存在するかどうか処理
@@ -89,11 +88,22 @@ class VendingMachine
 
   # 在庫が存在するかどうか処理
   # => true or false
-  # vm.product_exist?(:コーラ)
-  def product_exist?(product_name)
+  # vm.drinks_exist?(:コーラ)
+  def drinks_exist?(product_name)
     0 < @list_drinks[product_name][:count]
   end
   # ステップ3まで ########################################
+
+  # ステップ5の処理なので、コメントアウト
+  # 釣り銭と売り上げ管理を処理
+  # => vm.manage_amount(:コーラ)
+  # def manage_amount(product_name)
+    # if @slot_money > @list_drinks[product_name][:price]
+      # @slot_money
+    # else
+      # 0
+    # end
+  # end
 
 end
 
