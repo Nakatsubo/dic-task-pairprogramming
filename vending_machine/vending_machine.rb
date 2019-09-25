@@ -31,6 +31,7 @@ class VendingMachine
   end
 
   # 投入したお金の合計処理
+  # => vm.slot_money(1000)
   # => value
   def slot_money(money)
     if valid_money?(money)
@@ -58,52 +59,50 @@ class VendingMachine
   # 自動販売機のジュースの在庫
   # vm.drink_count(:コーラ)
   # => value
-  def drink_count(drink_name)
-    @list_drinks[drink_name][:count]
+  def drink_count(name)
+    @list_drinks[name][:count]
   end
 
   # ここから自動販売機の処理
   # vm.purchase(:コーラ)
   # => value
-  def purchase(drink_name)
+  def purchase(name)
     # => 購入できるかどうか
-    return unless purchase?(drink_name) # => falseになったらreturn
-    @purchase_amount += @list_drinks[drink_name][:price] # => 売り上げ金額
-    @slot_money -= @list_drinks[drink_name][:price] # => 購入金額
-    @list_drinks[drink_name][:count] -= 1 # => ジュースの在庫
+    return unless purchase?(name) # => falseになったらreturn
+    @purchase_amount += @list_drinks[name][:price] # => 売り上げ金額
+    @slot_money -= @list_drinks[name][:price] # => 購入金額
+    @list_drinks[name][:count] -= 1 # => ジュースの在庫
   end
 
   # 残金と在庫が存在したらtrueを返す処理
   # => true or false
   # vm.purchase?(:コーラ)
-  def purchase?(drink_name)
-    balance_amount?(drink_name) && drinks_exist?(drink_name)
+  def purchase?(name)
+    balance_amount?(name) && drinks_exist?(name)
   end
 
   # 残金が存在するかどうか処理
   # => true or false
   # vm.balance_amount?(:コーラ)
-  def balance_amount?(drink_name)
-    @list_drinks[drink_name][:price] <= @slot_money
+  def balance_amount?(name)
+    @list_drinks[name][:price] <= @slot_money
   end
 
   # 在庫が存在するかどうか処理
   # => true or false
   # vm.drinks_exist?(:コーラ)
-  def drinks_exist?(drink_name)
-    0 < @list_drinks[drink_name][:count]
+  def drinks_exist?(name)
+    0 < @list_drinks[name][:count]
   end
   # ステップ3まで ########################################
 
   # ステップ5の処理
   # 釣り銭と売り上げ管理を処理
   # => vm.manage_amount(:コーラ)
-   def manage_amount(drink_name)
-     if @slot_money > @list_drinks[drink_name][:price]
-       @slot_money
-     else
-       0
-     end
+   def manage_amount(name)
+    if purchase(name)
+      return_money
+    end
    end
 
 end
