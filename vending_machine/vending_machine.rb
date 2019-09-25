@@ -101,7 +101,7 @@ class VendingMachine
   # => vm.manage_amount(:コーラ)
    def manage_amount(name)
     if purchase(name)
-      return_money
+      @slot_money
     end
    end
 
