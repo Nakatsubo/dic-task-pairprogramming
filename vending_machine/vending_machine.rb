@@ -100,7 +100,7 @@ class VendingMachine
   # 釣り銭と売り上げ管理を処理
   # => vm.manage_amount(:コーラ)
    def manage_amount(name)
-    if purchase?(name)
+    if purchase(name)
       @slot_money
     end
    end
