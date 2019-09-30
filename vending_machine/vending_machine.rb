@@ -6,7 +6,7 @@ class VendingMachine
 
   # インスタンス変数
   # => インスタンスから変数を呼び出す
-  attr_accessor :slot_money, :change_money, :purchase_amount
+  attr_accessor :slot_money, :change_money, :drinks, :purchase_amount
 
   # initializeメソッド
   # => インスタンスを生成するのと同時に、変数の値を初期化する
