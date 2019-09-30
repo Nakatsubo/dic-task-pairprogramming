@@ -50,11 +50,11 @@ class VendingMachine
 
   # 自動販売機のジュースの種類
   # => vm.list_drink
-  # => {:コーラ=>{:price=>120, :count=>5}}
   def list_drink
     @drinks
   end
 
+  # 自動販売機の残りのジュースの種類、数
   # => vm.list_drink?
   def list_drink?
     result = []
