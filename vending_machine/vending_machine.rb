@@ -14,16 +14,23 @@ class VendingMachine
   def initialize
     @slot_money = 0 # => 投入金額
     @change_money = 0 # => 払い戻し金額
-    @list_drinks = {
-      'コーラ': {price: 120, count: 5},
-      'レッドブル': {price: 200, count: 5},
-      '水': {price: 100, count: 5}
+    #@drinks = {
+      #'コーラ': {product: 'cola', price: 120, count: 5},
+      #'レッドブル': {product: 'redbull', price: 200, count: 5},
+      #'水': {product: 'redbull', price: 100, count: 5}
       # ステップ4の処理
-    } # => ジュースの種類
+    #} # => ジュースの種類
+    @drinks = [
+       {product: 'cola', price: 120, count: 5},
+       {product: 'redbull', price: 200, count: 5},
+       {product: 'water', price: 100, count: 5}
+      # ステップ4の処理
+    ] # => ジュースの種類
     @purchase_amount = 0 # => 売り上げ金額
   end
 
-  # 投入したお金の払い戻し処理
+  # 投入したお金をゼロにする
+  # => vm.return_money
   # => value
   def return_money
     @change_money += @slot_money
@@ -51,56 +58,67 @@ class VendingMachine
   # => vm.list_drink
   # => {:コーラ=>{:price=>120, :count=>5}}
   def list_drink
-    @list_drinks
+    @drinks
+  end
+
+  # => vm.list_drink?
+  def list_drink?
+    result = []
+    @drinks.each do |drink|
+      if drink[:count] >= 1 && @slot_money >= drink[:price]
+        result << drink[:product]
+      end
+    end
+    result
   end
   # ステップ2まで ########################################
 
   # ステップ4の処理
   # 自動販売機のジュースの在庫
-  # vm.drink_count(:コーラ)
+  # vm.drink_count(0)
   # => value
-  def drink_count(name)
-    @list_drinks[name][:count]
+  def drink_count(number)
+    @drinks[number][:count]
   end
 
   # ここから自動販売機の処理
-  # vm.purchase(:コーラ)
+  # vm.purchase(0)
   # => value
-  def purchase(name)
+  def purchase(number)
     # => 購入できるかどうか
-    return unless purchase?(name) # => falseになったらreturn
-    @purchase_amount += @list_drinks[name][:price] # => 売り上げ金額
-    @slot_money -= @list_drinks[name][:price] # => 購入金額
-    @list_drinks[name][:count] -= 1 # => ジュースの在庫
+    return unless purchase?(number) # => falseになったらreturn
+    @purchase_amount += @drinks[number][:price] # => 売り上げ金額
+    @slot_money -= @drinks[number][:price] # => 購入金額
+    @drinks[number][:count] -= 1 # => ジュースの在庫
   end
 
   # 残金と在庫が存在したらtrueを返す処理
   # => true or false
-  # vm.purchase?(:コーラ)
-  def purchase?(name)
-    balance_amount?(name) && drinks_exist?(name)
+  # vm.purchase?(0)
+  def purchase?(number)
+    balance_amount?(number) && drinks_exist?(number)
   end
 
   # 残金が存在するかどうか処理
   # => true or false
-  # vm.balance_amount?(:コーラ)
-  def balance_amount?(name)
-    @list_drinks[name][:price] <= @slot_money
+  # vm.balance_amount?(0)
+  def balance_amount?(number)
+    @drinks[number][:price] <= @slot_money
   end
 
   # 在庫が存在するかどうか処理
   # => true or false
-  # vm.drinks_exist?(:コーラ)
-  def drinks_exist?(name)
-    0 < @list_drinks[name][:count]
+  # vm.drinks_exist?(0)
+  def drinks_exist?(number)
+    0 < @drinks[number][:count]
   end
   # ステップ3まで ########################################
 
   # ステップ5の処理
   # 釣り銭と売り上げ管理を処理
-  # => vm.manage_amount(:コーラ)
-   def manage_amount(name)
-    if purchase(name)
+  # => vm.manage_amount(0)
+   def manage_amount(number)
+    if purchase?(number)
       @slot_money
     end
    end
