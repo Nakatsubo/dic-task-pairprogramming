@@ -14,12 +14,6 @@ class VendingMachine
   def initialize
     @slot_money = 0 # => 投入金額
     @change_money = 0 # => 払い戻し金額
-    #@drinks = {
-      #'コーラ': {product: 'cola', price: 120, count: 5},
-      #'レッドブル': {product: 'redbull', price: 200, count: 5},
-      #'水': {product: 'redbull', price: 100, count: 5}
-      # ステップ4の処理
-    #} # => ジュースの種類
     @drinks = [
        {product: 'cola', price: 120, count: 5},
        {product: 'redbull', price: 200, count: 5},
@@ -124,9 +118,3 @@ class VendingMachine
    end
 
 end
-
-# コピペ用 irb
-# require '/Users/nakatsuboyuusuke/Documents/dic_pairprogramming/vending_machine/vending_machine.rb'
-
-# コピペ用 インスタンスを生成
-# vm = VendingMachine.new
