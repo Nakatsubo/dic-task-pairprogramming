@@ -122,6 +122,7 @@ end
 
 class Drink
 
+  # 引数使ってないから意味ないや、すまねえ。。。
   attr_accessor :product, :price, :count
 
   def initialize
