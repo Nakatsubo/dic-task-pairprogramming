@@ -10,7 +10,6 @@ class VendingMachine
 
   # initializeメソッド
   # => インスタンスを生成するのと同時に、変数の値を初期化する
-  # => #<VendingMachine:0x00007fe01d91f640 @slot_money=0, @change_money=0, @product_hash={:コーラ=>{:price=>120, :count=>5}}, @purchase_amount=0>
   def initialize
     @slot_money = 0 # => 投入金額
     @change_money = 0 # => 払い戻し金額
@@ -119,6 +118,7 @@ class VendingMachine
    end
 
 end
+
 
 class Drink
 
