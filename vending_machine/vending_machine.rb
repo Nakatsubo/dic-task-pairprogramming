@@ -20,7 +20,7 @@ class VendingMachine
       # ステップ4の処理
     ] # => ジュースの種類
     @purchase_amount = 0 # => 売り上げ金額
-    @drinks = [Drink.set_cola, Drink.set_redull, Drink.set_water]
+    @drinks = [Drink.set_cola, Drink.set_redbull, Drink.set_water]
   end
 
   # 投入したお金をゼロにする
@@ -122,7 +122,7 @@ end
 
 class Drink
 
-  # 引数使ってないから意味ないや、すまねえ。。。
+  # 引数使ってないからこの辺意味ないや、すまねえ。。。
   attr_accessor :product, :price, :count
 
   def initialize
@@ -137,7 +137,7 @@ class Drink
   end
 
   # レッドブルの初期設定
-  def self.set_redull
+  def self.set_redbull
     {product: 'redbull', price: 200, count: 5}
   end
 
