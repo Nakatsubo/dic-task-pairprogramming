@@ -15,12 +15,13 @@ class VendingMachine
     @slot_money = 0 # => 投入金額
     @change_money = 0 # => 払い戻し金額
     @drinks = [
-       {product: 'cola', price: 120, count: 5},
-       {product: 'redbull', price: 200, count: 5},
-       {product: 'water', price: 100, count: 5}
+       #{product: 'cola', price: 120, count: 5},
+       #{product: 'redbull', price: 200, count: 5},
+       #{product: 'water', price: 100, count: 5}
       # ステップ4の処理
     ] # => ジュースの種類
     @purchase_amount = 0 # => 売り上げ金額
+    @drinks = [Drink.set_cola, Drink.set_redull, Drink.set_water]
   end
 
   # 投入したお金をゼロにする
@@ -110,11 +111,38 @@ class VendingMachine
 
   # ステップ5の処理
   # 釣り銭と売り上げ管理を処理
-  # => vm.manage_amount(0)
+  # => vm.manage_amount
    def manage_amount(number)
     if purchase?(number)
       @slot_money
     end
    end
+
+end
+
+class Drink
+
+  attr_accessor :product, :price, :count
+
+  def initialize
+    @product = product
+    @price = price
+    @count = count
+  end
+
+  # コーラの初期設定
+  def self.set_cola
+    {product: 'cola', price: 120, count: 5}
+  end
+
+  # レッドブルの初期設定
+  def self.set_redull
+    {product: 'redbull', price: 200, count: 5}
+  end
+
+  # 水の初期設定
+  def self.set_water
+    {product: 'water', price: 100, count: 5}
+  end
 
 end
